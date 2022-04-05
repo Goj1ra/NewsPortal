@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "rz6EGBhBvTJQE/fS5mWV7NYk+4UQSvP+t9VQULhueny92MHCqHuZJFE6ASHIRducfJQ/xz3qBcWWDg++CTlDng==",
+  "dgSpecHash": "+9hLtPR8POy5XzVtCxrlmwOBtLe4EsywKp+x3Z7FYdZJAumpYXiTmN9fjy1Mib217vjkQ81f/g8l6SrQg8pDQA==",
   "success": true,
-  "projectFilePath": "C:\\Users\\Артем\\source\\repos\\NewsPortal\\NewsPortal\\NewsPortal.csproj",
+  "projectFilePath": "C:\\Users\\Артем\\Desktop\\NewsPortal\\NewsPortal\\NewsPortal.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Артем\\.nuget\\packages\\humanizer.core\\2.8.26\\humanizer.core.2.8.26.nupkg.sha512",
     "C:\\Users\\Артем\\.nuget\\packages\\microsoft.aspnetcore.cryptography.internal\\5.0.13\\microsoft.aspnetcore.cryptography.internal.5.0.13.nupkg.sha512",
