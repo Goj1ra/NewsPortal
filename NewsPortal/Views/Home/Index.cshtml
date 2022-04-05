@@ -1,0 +1,81 @@
+﻿@using NewsAPI
+@using NewsAPI.Models
+@using NewsAPI.Constants
+@model RequestModel
+@{
+    ViewData["Title"] = "Home Page";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container px-4 px-lg-5">
+    <div class="row gx-4 gx-lg-5 justify-content-center">
+        <ul class="nav nav-tabs justify-content-around mb-3 border-0">
+            <li class="nav-item">
+                <a class="nav-link sport-item" href="#" data-object="Хоккей">Хоккей</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link sport-item" href="#" data-object="Баскетбол">Баскетбол</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link sport-item" href="#" data-object="Бокс">Бокс</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link sport-item" href="#" data-object="Теннис">Теннис</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link sport-item" href="#" data-object="Биатлон">Биатлон</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link sport-item" href="#" data-object="Киберспорт">Киберспорт</a>
+            </li>
+        </ul>
+        <div class="col-md-10 col-lg-8 col-xl-7" id="newsBlog">
+            <!-- Post preview-->
+            @if (Model.ArticleResult.Articles.Count == 0)
+             {
+                <div class="post-preview">
+                    <h2 class="alert post-title">Sorry, there are no news for your request </h2>
+                </div>
+             }
+            else
+            {
+                @foreach (var article in Model.ArticleResult.Articles)
+                 {
+                    @if (article.UrlToImage == null)
+                     {
+                        <div class="post-preview">
+                            <input type="image" class="card-img" src="~/images/picture.missing.jpg" />
+                            <h2 class="post-title">@article.Author</h2>
+                            <h3 class="post-subtitle">@article.Title</h3>
+                            <p class="post-meta">
+                                Posted by
+                                <a href="@article.Url">@article.Author</a>
+                                @article.PublishedAt
+                            </p>
+                        </div>
+                     }
+                    else
+                    {
+                        <div class="post-preview">
+                            <input type="image" class="card-img" src="@article.UrlToImage" />
+                            <h2 class="post-title">@article.Author</h2>
+                            <h3 class="post-subtitle">@article.Title</h3>
+                            <p class="post-meta">
+                                Posted by
+                                <a href="@article.Url">@article.Author</a>
+                                @article.PublishedAt
+                            </p>
+                        </div>
+                    }
+                 }
+            }
+            <!-- Divider-->
+            <hr class="my-4" />
+            <!-- Pager-->
+            <div class="d-flex justify-content-end mb-4"><a class="btn btn-primary text-uppercase" href="#!">Older Posts →</a></div>
+        </div>
+    </div>
+</div>
+
+
+

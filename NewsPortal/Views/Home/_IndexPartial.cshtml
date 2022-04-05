@@ -1,0 +1,48 @@
+﻿@using NewsAPI
+@using NewsAPI.Models
+@using NewsAPI.Constants
+@model RequestModel
+
+<div class="col-md-10 col-lg-8 col-xl-7" id="newsBlog">
+    <!-- Post preview-->
+    @if (Model.ArticleResult.Articles.Count == 0)
+     {
+        <div class="post-preview">
+            <h2 class="alert post-title">Sorry, there are no news for your request </h2>
+        </div>
+     }
+    else
+    {
+        @foreach (var article in Model.ArticleResult.Articles)
+         {
+            @if (article.UrlToImage == null)
+            {
+                <div class="post-preview">
+                    <input type="image" class="card-img" src="~/images/picture.missing.jpg" />
+                    <h2 class="post-title">@article.Author</h2>
+                    <h3 class="post-subtitle">@article.Title</h3>
+                    <p class="post-meta">
+                        Posted by
+                        <a href="@article.Url">@article.Author</a>
+                        @article.PublishedAt
+                    </p>
+                </div>
+            }
+            else
+            {
+                <div class="post-preview">
+                    <input type="image" class="card-img" src="@article.UrlToImage" />
+                    <h2 class="post-title">@article.Author</h2>
+                    <h3 class="post-subtitle">@article.Title</h3>
+                    <p class="post-meta">
+                        Posted by
+                        <a href="@article.Url">@article.Author</a>
+                        @article.PublishedAt
+                    </p>
+                </div>
+            }
+         }
+    }
+    <hr class="my-4" />
+</div>
+ 

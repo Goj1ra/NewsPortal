@@ -1,0 +1,86 @@
+﻿@using NewsAPI
+@using NewsAPI.Models
+@using NewsAPI.Constants
+@model RequestModel
+@{
+    ViewData["Title"] = "NewsManager";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<!-- Main Content-->
+<div class="container px-4 px-lg-5">
+    <div class="row gx-4 gx-lg-5 justify-content-center">
+        <form class="form-inline my-2 my-lg-0 justify-content-center">
+            <input type="text" class="form-control" placeholder="Your key word" aria-label="Username"  asp-for="Q">
+            <input class="form-control mr-sm-1 w-50" type="date" placeholder="Datetime" aria-label="Datetime" asp-for="From"/>
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit" asp-action="Get" formmethod="post">Search</button>
+            <select class="form-select form-select-lg mb-3" >
+                <option selected hidden> Select your language</option>
+                <option value=@Languages.RU>Russian</option>
+                <option value=@Languages.EU>English</option>
+                <option value=@Languages.FR>France</option>
+                <option value=@Languages.ES>Spanish</option>
+                <option value=@Languages.IT>Italian</option>
+                <option value=@Languages.DE>German</option>
+            </select>
+            <select class="form-select form-select-lg mb-3">
+                <option selected hidden> Select your sorting</option>
+                <option value=@SortBys.Popularity>Popularity</option>
+                <option value=@SortBys.PublishedAt>PublishedAt</option>
+                <option value=@SortBys.Relevancy>Relevancy</option>
+            </select>
+        </form>
+        <div class="col-md-10 col-lg-8 col-xl-7">
+            <!-- Post preview-->
+            @if (Model.ArticleResult.Articles.Count == 0)
+            {
+                <div class="post-preview">
+                    <h2 class="alert post-title">Sorry, there are no news for your request </h2>
+                </div>
+            }
+            else
+            {
+                @foreach (var article in Model.ArticleResult.Articles)
+                {
+                    @if (article.UrlToImage == null)
+                    {
+                        <div class="post-preview">
+                            <input type="image" class="card-img" src="~/images/picture.missing.jpg" />
+                            <h2 class="post-title">@article.Author</h2>
+                            <h3 class="post-subtitle">@article.Title</h3>
+                            <p class="post-meta">
+                                Posted by
+                                <a href="@article.Url">@article.Author</a>
+                                @article.PublishedAt
+                            </p>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="post-preview">
+                            <input type="image" class="card-img" src="@article.UrlToImage" />
+                            <h2 class="post-title">@article.Author</h2>
+                            <h3 class="post-subtitle">@article.Title</h3>
+                            <p class="post-meta">
+                                Posted by
+                                <a href="@article.Url">@article.Author</a>
+                                @article.PublishedAt
+                            </p>
+                        </div>
+                    }
+                }
+            }
+            <!-- Divider-->
+            <hr class="my-4" />
+            <!-- Pager-->
+            <div class="d-flex justify-content-end mb-4"><a class="btn btn-primary text-uppercase" href="#!">Older Posts →</a></div>
+        </div>
+    </div>
+</div>
+<!-- Bootstrap core JS-->
+<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<!-- Core theme JS-->
+<script src="~/js/scripts.js"></script>
+
+
+
+

@@ -1,0 +1,41 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using NewsPortal.Areas.Identity.Data
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+
+<ul class="navbar-nav ms-auto py-4 py-lg-0 align-items-center">
+@if (SignInManager.IsSignedIn(User))
+{
+    <li class="nav-item" style="align-self:center;">
+        @if(UserManager.GetUserAsync(User).Result.ProfilePicture != null)
+         {
+            <img style="width:40px;height:40px;object-fit:cover;border-radius:30px" src="data:image/*;base64,@(Convert.ToBase64String(UserManager.GetUserAsync(User).Result.ProfilePicture))" />
+         }
+    </li>
+    
+    <li class="nav-item">
+        <a class="nav-link px-lg-3 py-3 py-lg-4" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Hello, @UserManager.GetUserAsync(User).Result.FirstName!</a>
+    </li>
+
+    <li class="nav-item">
+        <a class="nav-link px-lg-3 py-3 py-lg-4" asp-area="" asp-controller="NewsManager" asp-action="GetAllNews">News</a>
+    </li>
+
+    @if(await UserManager.IsInRoleAsync(UserManager.GetUserAsync(User).Result,"Admin"))
+     {
+        <li class="nav-item dropdown show"> 
+            <a class="dropdown-toggle nav-link px-lg-3 py-3 py-lg-4" href="#" data-toggle="dropdown">Admin</a>
+            <div class="dropdown-menu">
+                <a class="dropdown-item nav-link px-lg-3 py-3 py-lg-4" asp-area="" asp-controller="RoleManager" asp-action="Index">Add New Role</a>
+                <a class="dropdown-item nav-link px-lg-3 py-3 py-lg-4" asp-area="" asp-controller="UserRoles" asp-action="Index">Change Roles</a>
+            </div>
+        </li>
+     }
+
+    <li class="nav-link px-lg-3 py-3 py-lg-4">
+        <form  class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
+            <button  type="submit" class="nav-link px-lg-3 py-3 py-lg-4 btn btn-link text-light">Logout</button>
+        </form>
+    </li>
+}
+</ul>
